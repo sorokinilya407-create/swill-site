@@ -348,41 +348,74 @@
   <div class="tab-content">
     
     <!-- TELEGRAM -->
-    <div id="telegram" class="tab-pane active">
-      <h2><i class="fab fa-telegram"></i> Telegram — полный гайд</h2>
-      <div class="warning-note">
-        <i class="fas fa-info-circle"></i> <strong>Почему не работает:</strong> РКН блокирует WebSocket веб-версии. Решение — MTProto прокси.
-      </div>
-      
-      <h3><i class="fas fa-list-ol"></i> Способ 1: Готовый прокси (30 секунд)</h3>
-      <div class="step-list">
-        <ol style="margin-left:1.2rem;">
-          <li>Скачай файл с прокси по ссылке ниже</li>
-          <li>Открой Telegram → Настройки → Данные и память → Прокси</li>
-          <li>Жми «Добавить прокси» → MTProto</li>
-          <li>Скопируй данные из файла и вставь</li>
-          <li>Готово — Telegram работает без VPN</li>
-        </ol>
-      </div>
-      <div class="file-link">
-        <i class="fas fa-database"></i>
-        <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto — свежие прокси</a>
-        <span class="update-badge"><i class="far fa-clock"></i> каждые 12ч</span>
-      </div>
-      
-      <h3><i class="fas fa-server"></i> Способ 2: Свой прокси (для гиков)</h3>
-      <p>Подними на VPS за 5 минут — будет только твой и без лимитов.</p>
-      <pre><code># Установка Docker
+   <!-- TELEGRAM -->
+<div id="telegram" class="tab-pane active">
+  <h2><i class="fab fa-telegram"></i> Telegram — пошаговый гайд</h2>
+  
+  <div class="warning-note">
+    <i class="fas fa-lightbulb"></i> <strong>Суть проблемы:</strong> РКН режет веб-версию. Решение — встроенный прокси MTProto. Это как секретный туннель внутри Telegram. Настраивается за 1 минуту.
+  </div>
+  
+  <h3><i class="fas fa-magic"></i> Способ для всех: готовый прокси</h3>
+  <p>Ниже — ссылки на файлы с рабочими прокси. <strong>Обновляются автоматически.</strong></p>
+  
+  <div class="file-link">
+    <i class="fas fa-database"></i>
+    <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto — свежие прокси</a>
+    <span class="update-badge"><i class="far fa-clock"></i> каждые 12 часов</span>
+  </div>
+  <div class="file-link">
+    <i class="fas fa-database"></i>
+    <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/mtproto.txt" target="_blank">rjsxrd/mtproto — резервный список</a>
+    <span class="update-badge"><i class="far fa-clock"></i> раз в 2 дня</span>
+  </div>
+
+  <div class="step-list">
+    <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Как добавить прокси (открой Telegram и делай):</h4>
+    <ol style="margin-left:1.2rem;">
+      <li>Нажми <strong>Настройки</strong> (шестерёнка) → <strong>Данные и память</strong> → <strong>Прокси</strong></li>
+      <li>Нажми <strong>«Добавить прокси»</strong> (плюсик или кнопка внизу)</li>
+      <li>Выбери тип <strong>MTPROTO</strong> (это важно!)</li>
+      <li>Теперь смотри в файл с прокси (ссылки выше). Там строка вида:<br>
+          <code>tg://proxy?server=123.456.78.90&port=443&secret=ee1234567890abcdef...</code>
+      </li>
+      <li>Вот что куда вставлять:
+        <ul style="margin-top:0.5rem;">
+          <li><strong>Hostname</strong> — это то, что после <code>server=</code> (например <code>123.456.78.90</code>)</li>
+          <li><strong>Port</strong> — это после <code>port=</code> (обычно <code>443</code>)</li>
+          <li><strong>Secret</strong> — это после <code>secret=</code> (вся длинная строка, копируй целиком)</li>
+        </ul>
+      </li>
+      <li>Нажми <strong>Сохранить</strong></li>
+      <li>Выбери этот прокси в списке и включи переключатель <strong>«Использовать прокси»</strong></li>
+    </ol>
+  </div>
+
+  <div style="background:#1a1a28; border-radius:12px; padding:1rem; margin:1rem 0; border-left:4px solid #7aa2ff;">
+    <i class="fas fa-mobile-alt" style="color:#7aa2ff;"></i> 
+    <strong>Лайфхак для телефона:</strong> Просто открой ссылку <code>tg://proxy?...</code> в браузере — Telegram сам предложит добавить прокси. Копируй всю строку из файла и вставляй в адресную строку.
+  </div>
+
+  <h3><i class="fas fa-server"></i> Хочу свой прокси (для продвинутых)</h3>
+  <p>Подними на своём VPS — будет только твой, без лимитов и чужих глаз.</p>
+  <pre><code># Установи Docker (если нет)
 curl -fsSL https://get.docker.com | sh
-# Запуск MTProto с маскировкой под Google
+
+# Запусти MTProto с маскировкой под Google
 docker run -d --restart=unless-stopped --name mtg -p 443:3128 nineseconds/mtg:2 run https://www.google.com
-# Получить ссылку
+
+# Получи свою ссылку для подключения
 docker logs mtg 2>&1 | grep "tg://"</code></pre>
-      
-      <h3><i class="fab fa-android"></i> Android: TG Proxy 2026</h3>
-      <p>Приложение, которое поднимает SOCKS5 прокси прямо на телефоне. Работает без рута.</p>
-      <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать APK</a>
-    </div>
+  <p>Скопируй ссылку, открой в браузере — готово.</p>
+
+  <h3><i class="fab fa-android"></i> Android: приложение TG Proxy 2026</h3>
+  <p>Поднимает SOCKS5 прокси прямо на телефоне. Не нужен VPS, не нужен рут.</p>
+  <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать APK</a>
+  
+  <p style="margin-top:1rem; font-size:0.9rem; color:#aaa;">
+    <i class="fas fa-question-circle"></i> Не работает? Попробуй другой прокси из файла — некоторые быстро отваливаются. Или напиши в <a href="#" onclick="document.querySelector('[data-tab=feedback]').click()" style="color:#7aa2ff;">обратную связь</a>.
+  </p>
+</div>
 
     <!-- YOUTUBE -->
     <div id="youtube" class="tab-pane">
