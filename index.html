@@ -18,11 +18,41 @@
       line-height: 1.5;
       padding: 12px;
       -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
     }
+    body.light {
+      background: #f0f0f5;
+      color: #1a1a2a;
+    }
+    body.light .tab-content { background: #ffffff; border-color: #ddd; }
+    body.light .card { background: #f5f5fa; border-color: #ddd; }
+    body.light .file-link { background: #eee; border-color: #ccc; }
+    body.light code { background: #e0e0e8; color: #1a1a8a; }
+    body.light pre { background: #e8e8f0; border-color: #ccc; }
+    body.light .feedback-form input, 
+    body.light .feedback-form textarea { background: #fff; border-color: #ccc; color: #1a1a2a; }
+    body.light .chat-wrapper { background: #e8e8f0; }
+    body.light footer { color: #666; border-top-color: #ccc; }
+    body.light .subtitle { color: #555; border-bottom-color: #ccc; }
+    body.light .step-list { background: #eee; }
+    body.light .warning-note { background: rgba(255,200,0,0.05); }
+    
     .container { max-width: 1100px; margin: 0 auto; }
     
     /* header */
-    .hero { margin: 1.5rem 0 2rem; text-align: center; }
+    .hero { margin: 1.5rem 0 1rem; text-align: center; position: relative; }
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: transparent;
+      border: 1px solid #4a4a6a;
+      color: inherit;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
     .rkn-block {
       display: flex;
       align-items: center;
@@ -41,6 +71,7 @@
       text-decoration-color: #ffffff;
       text-decoration-thickness: 4px;
     }
+    body.light .strikethrough { text-decoration-color: #1a1a2a; }
     .main-title {
       font-size: clamp(2.8rem, 12vw, 4rem);
       font-weight: 900;
@@ -51,23 +82,51 @@
       background-clip: text;
       color: transparent;
     }
+    body.light .main-title {
+      background: linear-gradient(135deg, #1a1a2a 0%, #4a4aff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
     .subtitle {
       color: #aaa;
       font-size: clamp(0.9rem, 4vw, 1.1rem);
       border-bottom: 1px solid #2a2a3a;
-      padding-bottom: 1rem;
+      padding-bottom: 0.8rem;
       margin-top: 0.5rem;
     }
-
-    /* tabs */
+    
+    /* бегущая строка */
+    .ticker {
+      background: #1a1a28;
+      border-radius: 30px;
+      padding: 0.4rem 1rem;
+      margin: 1rem 0 0.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      border: 1px solid #2f2f44;
+    }
+    body.light .ticker { background: #e0e0e8; border-color: #ccc; }
+    .ticker span {
+      display: inline-block;
+      animation: ticker 20s linear infinite;
+      color: #ffc107;
+    }
+    body.light .ticker span { color: #b8860b; }
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    
+    /* вкладки */
     .tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 0.3rem;
-      margin-bottom: 1.5rem;
+      margin: 1rem 0 1.5rem;
       border-bottom: 2px solid #2a2a3a;
       padding-bottom: 0.5rem;
     }
+    body.light .tabs { border-bottom-color: #ccc; }
     .tab-btn {
       background: transparent;
       border: none;
@@ -82,13 +141,16 @@
       align-items: center;
       gap: 0.3rem;
       white-space: nowrap;
+      position: relative;
     }
     .tab-btn i { font-size: 1rem; }
     .tab-btn:hover { color: #fff; background: #1e1e2a; }
+    body.light .tab-btn:hover { background: #ddd; color: #1a1a2a; }
     .tab-btn.active {
       color: #7aa2ff;
       background: #151520;
     }
+    body.light .tab-btn.active { background: #e0e0e8; }
     .tab-btn.active::after {
       content: '';
       position: absolute;
@@ -99,9 +161,8 @@
       background: #7aa2ff;
       box-shadow: 0 0 15px #7aa2ff;
     }
-    .tab-btn { position: relative; }
-
-    /* content */
+    
+    /* контент */
     .tab-content {
       background: #111118;
       border-radius: 20px;
@@ -110,7 +171,7 @@
     }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
-
+    
     h2 {
       color: #fff;
       margin-bottom: 1.5rem;
@@ -121,6 +182,7 @@
       align-items: center;
       gap: 0.5rem;
     }
+    body.light h2 { color: #1a1a2a; }
     h3 {
       color: #ccc;
       margin: 1.5rem 0 1rem;
@@ -129,12 +191,10 @@
       align-items: center;
       gap: 0.5rem;
     }
-    h4 {
-      color: #fff;
-      margin-bottom: 0.75rem;
-      font-size: clamp(1rem, 4.5vw, 1.2rem);
-    }
-
+    body.light h3 { color: #333; }
+    h4 { color: #fff; margin-bottom: 0.75rem; font-size: clamp(1rem, 4.5vw, 1.2rem); }
+    body.light h4 { color: #1a1a2a; }
+    
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -147,7 +207,7 @@
       padding: 1.2rem;
       border: 1px solid #2f2f44;
     }
-
+    
     .btn {
       display: inline-block;
       background: #2a2a40;
@@ -161,7 +221,9 @@
       margin-right: 0.4rem;
       margin-bottom: 0.4rem;
       touch-action: manipulation;
+      cursor: pointer;
     }
+    body.light .btn { background: #d0d0e0; border-color: #aaa; color: #1a1a2a; }
     .btn i { margin-right: 0.3rem; }
     .btn-primary {
       background: #7aa2ff;
@@ -171,7 +233,7 @@
     }
     .btn-primary:active { background: #9bb5ff; }
     .btn:active { background: #3a3a55; }
-
+    
     code {
       background: #0c0c14;
       padding: 0.2rem 0.4rem;
@@ -190,7 +252,7 @@
       font-size: 0.85rem;
       -webkit-overflow-scrolling: touch;
     }
-
+    
     .file-link {
       display: flex;
       align-items: center;
@@ -202,12 +264,8 @@
       border: 1px dashed #4a4a6a;
       flex-wrap: wrap;
     }
-    .file-link a {
-      color: #7aa2ff;
-      text-decoration: none;
-      word-break: break-all;
-    }
-
+    .file-link a { color: #7aa2ff; text-decoration: none; word-break: break-all; }
+    
     .update-badge {
       background: #2a2a40;
       color: #aaa;
@@ -215,7 +273,8 @@
       padding: 0.2rem 0.7rem;
       border-radius: 20px;
     }
-
+    body.light .update-badge { background: #ccc; color: #333; }
+    
     .warning-note {
       background: rgba(255,200,0,0.1);
       border-left: 4px solid #ffc107;
@@ -223,7 +282,6 @@
       border-radius: 8px;
       margin: 1rem 0;
     }
-
     .step-list {
       background: #0f0f18;
       padding: 1rem 1.5rem;
@@ -231,14 +289,40 @@
       margin: 1rem 0;
     }
     .step-list li { margin-bottom: 0.6rem; }
-
-    /* chat iframe */
+    
+    /* счётчик прокси + проверка IP */
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .stat-card {
+      background: #1a1a28;
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid #2f2f44;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    body.light .stat-card { background: #e0e0e8; border-color: #ccc; }
+    .stat-value {
+      font-weight: bold;
+      color: #7aa2ff;
+      font-size: 1.2rem;
+    }
+    
+    /* чат */
     .chat-wrapper {
       background: #0e0e18;
       border-radius: 16px;
       padding: 0.8rem;
       border: 1px solid #2f2f44;
       margin: 1rem 0;
+      position: relative;
+      min-height: 450px;
     }
     .chat-iframe {
       width: 100%;
@@ -246,9 +330,21 @@
       border: none;
       border-radius: 12px;
       background: #1a1a28;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-
-    /* форма обратной связи */
+    .chat-iframe.loaded { opacity: 1; }
+    .chat-loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #aaa;
+    }
+    .chat-loader i { font-size: 2rem; margin-bottom: 0.5rem; color: #7aa2ff; }
+    
+    /* форма */
     .feedback-form {
       background: #0f0f18;
       border-radius: 16px;
@@ -268,10 +364,7 @@
       outline: none;
       font-family: inherit;
     }
-    .feedback-form textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+    .feedback-form textarea { min-height: 100px; resize: vertical; }
     .feedback-form button {
       background: #7aa2ff;
       border: none;
@@ -282,15 +375,9 @@
       font-size: 1rem;
       cursor: pointer;
       width: 100%;
-      touch-action: manipulation;
     }
-    .feedback-form button:active { background: #9bb5ff; }
-    .form-status {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
+    .form-status { margin-top: 0.5rem; font-size: 0.9rem; text-align: center; }
+    
     footer {
       margin-top: 2.5rem;
       text-align: center;
@@ -299,22 +386,18 @@
       border-top: 1px solid #222;
       padding-top: 1.5rem;
     }
-
-    /* мобильная оптимизация */
+    
     @media (max-width: 600px) {
       body { padding: 8px; }
-      .hero { margin: 0.8rem 0 1.2rem; }
-      .tab-content { padding: 1rem; border-radius: 16px; }
+      .hero { margin: 0.5rem 0 1rem; }
+      .theme-toggle { position: static; margin-bottom: 0.5rem; }
+      .tab-content { padding: 1rem; }
       .tabs { gap: 0.2rem; }
       .tab-btn { padding: 0.5rem 0.7rem; }
       .tab-btn span { display: none; }
       .tab-btn i { font-size: 1.2rem; margin: 0; }
-      .file-link { padding: 0.6rem 0.8rem; }
-      .step-list { padding: 0.8rem 1rem; }
-      .feedback-form { padding: 1rem; }
+      .stats-bar { justify-content: center; }
     }
-
-    /* для очень маленьких экранов */
     @media (max-width: 400px) {
       .card-grid { grid-template-columns: 1fr; }
     }
@@ -325,6 +408,7 @@
   
   <!-- Hero -->
   <div class="hero">
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-sun"></i> <span>Светлая тема</span></button>
     <div class="rkn-block">
       <span class="strikethrough">РКН</span>
       <span style="font-size: 1.3rem;">✕</span>
@@ -332,6 +416,25 @@
     </div>
     <div class="main-title">НЕТ!</div>
     <div class="subtitle">Актуальные методы обхода. Проверено. Без воды.</div>
+  </div>
+  
+  <!-- Бегущая строка -->
+  <div class="ticker">
+    <span>🔥 YouTube снова тормозит — качай GoodbyeDPI! // 🔥 Telegram Web заблокирован — используй MTProto прокси! // 🔥 VPN протоколы VLESS Reality работают стабильно! //</span>
+  </div>
+  
+  <!-- Статистика -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <i class="fas fa-shield-alt"></i>
+      <span>Прокси MTProto:</span>
+      <span class="stat-value" id="proxyCount">—</span>
+    </div>
+    <div class="stat-card" style="cursor:pointer;" id="checkIpBtn">
+      <i class="fas fa-network-wired"></i>
+      <span>Мой IP:</span>
+      <span class="stat-value" id="ipDisplay">Проверить</span>
+    </div>
   </div>
 
   <!-- Tabs -->
@@ -348,57 +451,56 @@
   <div class="tab-content">
     
     <!-- TELEGRAM -->
-   <!-- TELEGRAM -->
-<div id="telegram" class="tab-pane active">
-  <h2><i class="fab fa-telegram"></i> Telegram — пошаговый гайд</h2>
-  
-  <div class="warning-note">
-    <i class="fas fa-lightbulb"></i> <strong>Суть проблемы:</strong> РКН режет веб-версию. Решение — встроенный прокси MTProto. Это как секретный туннель внутри Telegram. Настраивается за 1 минуту.
-  </div>
-  
-  <h3><i class="fas fa-magic"></i> Способ для всех: готовый прокси</h3>
-  <p>Ниже — ссылки на файлы с рабочими прокси. <strong>Обновляются автоматически.</strong></p>
-  
-  <div class="file-link">
-    <i class="fas fa-database"></i>
-    <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto — свежие прокси</a>
-    <span class="update-badge"><i class="far fa-clock"></i> каждые 12 часов</span>
-  </div>
-  <div class="file-link">
-    <i class="fas fa-database"></i>
-    <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/mtproto.txt" target="_blank">rjsxrd/mtproto — резервный список</a>
-    <span class="update-badge"><i class="far fa-clock"></i> раз в 2 дня</span>
-  </div>
+    <div id="telegram" class="tab-pane active">
+      <h2><i class="fab fa-telegram"></i> Telegram — пошаговый гайд</h2>
+      
+      <div class="warning-note">
+        <i class="fas fa-lightbulb"></i> <strong>Суть проблемы:</strong> РКН режет веб-версию. Решение — встроенный прокси MTProto. Это как секретный туннель внутри Telegram. Настраивается за 1 минуту.
+      </div>
+      
+      <h3><i class="fas fa-magic"></i> Способ для всех: готовый прокси</h3>
+      <p>Ниже — ссылки на файлы с рабочими прокси. <strong>Обновляются автоматически.</strong></p>
+      
+      <div class="file-link">
+        <i class="fas fa-database"></i>
+        <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto — свежие прокси</a>
+        <span class="update-badge"><i class="far fa-clock"></i> каждые 12 часов</span>
+      </div>
+      <div class="file-link">
+        <i class="fas fa-database"></i>
+        <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/mtproto.txt" target="_blank">rjsxrd/mtproto — резервный список</a>
+        <span class="update-badge"><i class="far fa-clock"></i> раз в 2 дня</span>
+      </div>
 
-  <div class="step-list">
-    <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Как добавить прокси (открой Telegram и делай):</h4>
-    <ol style="margin-left:1.2rem;">
-      <li>Нажми <strong>Настройки</strong> (шестерёнка) → <strong>Данные и память</strong> → <strong>Прокси</strong></li>
-      <li>Нажми <strong>«Добавить прокси»</strong> (плюсик или кнопка внизу)</li>
-      <li>Выбери тип <strong>MTPROTO</strong> (это важно!)</li>
-      <li>Теперь смотри в файл с прокси (ссылки выше). Там строка вида:<br>
-          <code>tg://proxy?server=123.456.78.90&port=443&secret=ee1234567890abcdef...</code>
-      </li>
-      <li>Вот что куда вставлять:
-        <ul style="margin-top:0.5rem;">
-          <li><strong>Hostname</strong> — это то, что после <code>server=</code> (например <code>123.456.78.90</code>)</li>
-          <li><strong>Port</strong> — это после <code>port=</code> (обычно <code>443</code>)</li>
-          <li><strong>Secret</strong> — это после <code>secret=</code> (вся длинная строка, копируй целиком)</li>
-        </ul>
-      </li>
-      <li>Нажми <strong>Сохранить</strong></li>
-      <li>Выбери этот прокси в списке и включи переключатель <strong>«Использовать прокси»</strong></li>
-    </ol>
-  </div>
+      <div class="step-list">
+        <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Как добавить прокси (открой Telegram и делай):</h4>
+        <ol style="margin-left:1.2rem;">
+          <li>Нажми <strong>Настройки</strong> (шестерёнка) → <strong>Данные и память</strong> → <strong>Прокси</strong></li>
+          <li>Нажми <strong>«Добавить прокси»</strong> (плюсик или кнопка внизу)</li>
+          <li>Выбери тип <strong>MTPROTO</strong> (это важно!)</li>
+          <li>Теперь смотри в файл с прокси (ссылки выше). Там строка вида:<br>
+              <code>tg://proxy?server=123.456.78.90&port=443&secret=ee1234567890abcdef...</code>
+          </li>
+          <li>Вот что куда вставлять:
+            <ul style="margin-top:0.5rem;">
+              <li><strong>Hostname</strong> — это то, что после <code>server=</code> (например <code>123.456.78.90</code>)</li>
+              <li><strong>Port</strong> — это после <code>port=</code> (обычно <code>443</code>)</li>
+              <li><strong>Secret</strong> — это после <code>secret=</code> (вся длинная строка, копируй целиком)</li>
+            </ul>
+          </li>
+          <li>Нажми <strong>Сохранить</strong></li>
+          <li>Выбери этот прокси в списке и включи переключатель <strong>«Использовать прокси»</strong></li>
+        </ol>
+      </div>
 
-  <div style="background:#1a1a28; border-radius:12px; padding:1rem; margin:1rem 0; border-left:4px solid #7aa2ff;">
-    <i class="fas fa-mobile-alt" style="color:#7aa2ff;"></i> 
-    <strong>Лайфхак для телефона:</strong> Просто открой ссылку <code>tg://proxy?...</code> в браузере — Telegram сам предложит добавить прокси. Копируй всю строку из файла и вставляй в адресную строку.
-  </div>
+      <div style="background:#1a1a28; border-radius:12px; padding:1rem; margin:1rem 0; border-left:4px solid #7aa2ff;">
+        <i class="fas fa-mobile-alt" style="color:#7aa2ff;"></i> 
+        <strong>Лайфхак для телефона:</strong> Просто открой ссылку <code>tg://proxy?...</code> в браузере — Telegram сам предложит добавить прокси. Копируй всю строку из файла и вставляй в адресную строку.
+      </div>
 
-  <h3><i class="fas fa-server"></i> Хочу свой прокси (для продвинутых)</h3>
-  <p>Подними на своём VPS — будет только твой, без лимитов и чужих глаз.</p>
-  <pre><code># Установи Docker (если нет)
+      <h3><i class="fas fa-server"></i> Хочу свой прокси (для продвинутых)</h3>
+      <p>Подними на своём VPS — будет только твой, без лимитов и чужих глаз.</p>
+      <pre><code># Установи Docker (если нет)
 curl -fsSL https://get.docker.com | sh
 
 # Запусти MTProto с маскировкой под Google
@@ -406,16 +508,11 @@ docker run -d --restart=unless-stopped --name mtg -p 443:3128 nineseconds/mtg:2 
 
 # Получи свою ссылку для подключения
 docker logs mtg 2>&1 | grep "tg://"</code></pre>
-  <p>Скопируй ссылку, открой в браузере — готово.</p>
 
-  <h3><i class="fab fa-android"></i> Android: приложение TG Proxy 2026</h3>
-  <p>Поднимает SOCKS5 прокси прямо на телефоне. Не нужен VPS, не нужен рут.</p>
-  <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать APK</a>
-  
-  <p style="margin-top:1rem; font-size:0.9rem; color:#aaa;">
-    <i class="fas fa-question-circle"></i> Не работает? Попробуй другой прокси из файла — некоторые быстро отваливаются. Или напиши в <a href="#" onclick="document.querySelector('[data-tab=feedback]').click()" style="color:#7aa2ff;">обратную связь</a>.
-  </p>
-</div>
+      <h3><i class="fab fa-android"></i> Android: приложение TG Proxy 2026</h3>
+      <p>Поднимает SOCKS5 прокси прямо на телефоне. Не нужен VPS, не нужен рут.</p>
+      <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать APK</a>
+    </div>
 
     <!-- YOUTUBE -->
     <div id="youtube" class="tab-pane">
@@ -485,9 +582,6 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
         <a href="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt" target="_blank">igareck / VLESS Reality (белые списки)</a>
         <span class="update-badge">каждые 2 часа</span>
       </div>
-      <p style="margin-top:0.5rem; font-size:0.9rem; color:#aaa;">
-        <i class="fas fa-info-circle"></i> В клиенте выбери «Импорт из URL» и вставь ссылку выше.
-      </p>
     </div>
 
     <!-- ИНСТРУМЕНТЫ -->
@@ -503,7 +597,6 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
       <a href="https://github.com/confeden/Nova/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать Nova</a>
       
       <h3>Смена DNS</h3>
-      <p>Иногда этого достаточно для доступа к части сайтов.</p>
       <ul style="margin-left:1.5rem; margin-top:0.5rem;">
         <li><strong>Cloudflare:</strong> 1.1.1.1 / 1.0.0.1</li>
         <li><strong>AdGuard:</strong> 94.140.14.14 / 94.140.15.15</li>
@@ -518,8 +611,11 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
         <span>Собственный сервер. Без регистрации.</span>
       </div>
       <div class="chat-wrapper">
-        <!-- ЗАМЕНИ НА СВОЙ URL ОТ RENDER -->
-        <iframe src="https://swill.onrender.com" 
+        <div class="chat-loader" id="chatLoader">
+          <i class="fas fa-spinner fa-pulse"></i>
+          <p>Чат просыпается... (до 30 секунд)</p>
+        </div>
+        <iframe id="chatIframe" src="https://swill.onrender.com" 
                 class="chat-iframe" 
                 sandbox="allow-same-origin allow-scripts allow-forms allow-popups">
         </iframe>
@@ -575,13 +671,48 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
     activateTab(startTab);
   })();
 
-  // Форма обратной связи в Telegram
+  // Счётчик прокси
+  (function() {
+    var countEl = document.getElementById('proxyCount');
+    fetch('https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt')
+      .then(function(r) { return r.text(); })
+      .then(function(t) {
+        var lines = t.split('\n').filter(function(l) { return l.trim().length > 0 && l.includes('tg://'); });
+        countEl.textContent = lines.length;
+      })
+      .catch(function() { countEl.textContent = '?'; });
+  })();
+
+  // Проверка IP
+  (function() {
+    var ipDisplay = document.getElementById('ipDisplay');
+    var checkBtn = document.getElementById('checkIpBtn');
+    checkBtn.addEventListener('click', function() {
+      ipDisplay.textContent = '...';
+      fetch('https://api.ipify.org?format=json')
+        .then(function(r) { return r.json(); })
+        .then(function(d) { ipDisplay.textContent = d.ip; })
+        .catch(function() { ipDisplay.textContent = 'Ошибка'; });
+    });
+  })();
+
+  // Чат: скрываем лоадер при загрузке
+  (function() {
+    var iframe = document.getElementById('chatIframe');
+    var loader = document.getElementById('chatLoader');
+    iframe.addEventListener('load', function() {
+      iframe.classList.add('loaded');
+      loader.style.display = 'none';
+    });
+  })();
+
+  // Форма обратной связи
   (function() {
     var sendBtn = document.getElementById('fb-send');
     if (!sendBtn) return;
     
-    var BOT_TOKEN = 'YOUR_BOT_TOKEN'; // ЗАМЕНИ НА ТОКЕН СВОЕГО БОТА
-    var CHAT_ID = 'YOUR_CHAT_ID';     // ЗАМЕНИ НА СВОЙ CHAT ID
+    var BOT_TOKEN = '8729573144:AAGCZXAY33Ts-uUetGBdjnVZ0G7SrhTOfxk';
+    var CHAT_ID = '5096226866';
     
     sendBtn.addEventListener('click', function() {
       var name = document.getElementById('fb-name').value.trim() || 'Аноним';
@@ -590,13 +721,6 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
       
       if (!msg) {
         status.innerHTML = '<span style="color:#ff6b6b;">Введи сообщение</span>';
-        return;
-      }
-      
-      // Если токен не настроен — показываем инструкцию
-      if (BOT_TOKEN === 'YOUR_BOT_TOKEN') {
-        status.innerHTML = '<span style="color:#ffc107;">⚠️ Настрой бота. Инструкция в коде.</span>';
-        alert('Чтобы форма работала, создай бота в @BotFather и вставь токен в код.');
         return;
       }
       
@@ -610,11 +734,7 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
       fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: text,
-          parse_mode: 'Markdown'
-        })
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
       })
       .then(function(r) { return r.json(); })
       .then(function(data) {
@@ -632,6 +752,31 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
     
     function escapeMarkdown(text) {
       return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
+    }
+  })();
+
+  // Переключатель темы
+  (function() {
+    var btn = document.getElementById('themeToggle');
+    var body = document.body;
+    var icon = btn.querySelector('i');
+    var span = btn.querySelector('span');
+    btn.addEventListener('click', function() {
+      body.classList.toggle('light');
+      if (body.classList.contains('light')) {
+        icon.className = 'fas fa-moon';
+        span.textContent = 'Тёмная тема';
+      } else {
+        icon.className = 'fas fa-sun';
+        span.textContent = 'Светлая тема';
+      }
+      try { localStorage.setItem('swill_theme', body.classList.contains('light') ? 'light' : 'dark'); } catch(e) {}
+    });
+    var saved = localStorage.getItem('swill_theme');
+    if (saved === 'light') {
+      body.classList.add('light');
+      icon.className = 'fas fa-moon';
+      span.textContent = 'Тёмная тема';
     }
   })();
 </script>
