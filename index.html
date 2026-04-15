@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>БЛОКИРОВОК НЕТ! // SWILL HUB</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0b0b0f;
+      color: #e0e0e0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      padding: 1rem;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    
+    /* header */
+    .hero { margin: 1.5rem 0 2.5rem; text-align: center; }
+    .rkn-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #ff3a3a;
+      text-shadow: 0 0 15px rgba(255,58,58,0.5);
+      position: relative;
+      flex-wrap: wrap;
+    }
+    .rkn-block::before, .rkn-block::after {
+      content: "РКН";
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+      z-index: -1;
+    }
+    .rkn-block::before { left: 0; transform: rotate(-10deg); }
+    .rkn-block::after { right: 0; transform: rotate(10deg); }
+    .strikethrough {
+      text-decoration: line-through;
+      text-decoration-color: #ffffff;
+      text-decoration-thickness: 4px;
+    }
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-top: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(100,100,255,0.3);
+    }
+    .subtitle {
+      color: #aaa;
+      font-size: 1rem;
+      border-bottom: 1px solid #2a2a3a;
+      padding-bottom: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #2a2a3a;
+      padding-bottom: 0.5rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tab-btn i { font-size: 1rem; }
+    .tab-btn:hover { color: #fff; background: #1e1e2a; }
+    .tab-btn.active {
+      color: #7aa2ff;
+      background: #151520;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #7aa2ff;
+      box-shadow: 0 0 15px #7aa2ff;
+    }
+
+    /* content */
+    .tab-content {
+      background: #111118;
+      border-radius: 20px;
+      padding: 1.8rem;
+      border: 1px solid #2a2a3a;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    h2 {
+      color: #fff;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      border-left: 5px solid #7aa2ff;
+      padding-left: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h3 {
+      color: #ccc;
+      margin: 1.8rem 0 1rem;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h4 {
+      color: #fff;
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+    .card {
+      background: #1a1a28;
+      border-radius: 14px;
+      padding: 1.2rem;
+      border: 1px solid #2f2f44;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #7aa2ff;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #2a2a40;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid #4a4a6a;
+      transition: all 0.2s;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .btn i { margin-right: 0.3rem; }
+    .btn-primary {
+      background: #7aa2ff;
+      border-color: #7aa2ff;
+      color: #000;
+      font-weight: bold;
+    }
+    .btn-primary:hover { background: #9bb5ff; }
+    .btn:hover { background: #3a3a55; }
+
+    code {
+      background: #0c0c14;
+      padding: 0.2rem 0.4rem;
+      border-radius: 6px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #b0b0ff;
+    }
+    pre {
+      background: #0c0c14;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid #2a2a3a;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .file-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #0f0f18;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      border: 1px dashed #4a4a6a;
+    }
+    .file-link a {
+      color: #7aa2ff;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .update-badge {
+      background: #2a2a40;
+      color: #aaa;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+    }
+
+    .warning-note {
+      background: rgba(255,200,0,0.1);
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1.2rem 0;
+    }
+
+    .step-list {
+      background: #0f0f18;
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+    .step-list li { margin-bottom: 0.6rem; }
+
+    /* chat */
+    .chat-wrapper {
+      background: #0e0e18;
+      border-radius: 16px;
+      padding: 0.8rem;
+      border: 1px solid #2f2f44;
+      margin: 1.2rem 0;
+    }
+    .chat-iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 12px;
+      background: #1a1a28;
+    }
+    .chat-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      color: #aaa;
+    }
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4caf50;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #555;
+      font-size: 0.85rem;
+      border-top: 1px solid #222;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero { margin: 1rem 0 1.5rem; }
+      .rkn-block { font-size: 1.5rem; letter-spacing: 0.1em; }
+      .rkn-block::before, .rkn-block::after { font-size: 3.5rem; }
+      .main-title { font-size: 2.5rem; }
+      .tab-btn { font-size: 0.85rem; padding: 0.5rem 0.8rem; }
+      .tab-content { padding: 1rem; }
+      h2 { font-size: 1.5rem; }
+      h3 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- Hero -->
+  <div class="hero">
+    <div class="rkn-block">
+      <span class="strikethrough">РКН</span>
+      <span style="font-size: 1.3rem; margin:0 0.3rem;">✕</span>
+      <span>БЛОКИРОВОК</span>
+    </div>
+    <div class="main-title">НЕТ!</div>
+    <div class="subtitle">Актуальные обходы. Без воды. Всё проверено вручную.</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="telegram"><i class="fab fa-telegram"></i> Telegram</button>
+    <button class="tab-btn" data-tab="youtube"><i class="fab fa-youtube"></i> YouTube</button>
+    <button class="tab-btn" data-tab="vpn"><i class="fas fa-shield-alt"></i> VPN/Прокси</button>
+    <button class="tab-btn" data-tab="tools"><i class="fas fa-tools"></i> Инструменты</button>
+    <button class="tab-btn" data-tab="chat"><i class="fas fa-comments"></i> Наш чатик</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    
+    <!-- TELEGRAM -->
+    <div id="telegram" class="tab-pane active">
+      <h2><i class="fab fa-telegram"></i> Telegram – проверенные методы</h2>
+      <div class="warning-note">
+        <i class="fas fa-info-circle"></i> Веб-версия иногда тормозит из‑за блокировки WebSocket. 
+        Лучше используй десктоп‑клиент с MTProto‑прокси.
+      </div>
+      <h3><i class="fas fa-server"></i> Готовые MTProto‑прокси</h3>
+      <div class="file-link">
+        <i class="fas fa-database"></i>
+        <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto – all_proxies.txt</a>
+        <span class="update-badge"><i class="far fa-clock"></i> обновляется каждые 12 часов</span>
+      </div>
+      <div class="file-link">
+        <i class="fas fa-database"></i>
+        <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/mtproto.txt" target="_blank">rjsxrd/mtproto.txt</a>
+        <span class="update-badge"><i class="far fa-clock"></i> раз в 2 дня</span>
+      </div>
+      <div class="step-list">
+        <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Как добавить прокси в Telegram:</h4>
+        <ol style="margin-left:1.5rem;">
+          <li>Открой Telegram → «Настройки» → «Данные и память» → «Прокси».</li>
+          <li>Нажми «Добавить прокси» → тип <code>MTProto</code>.</li>
+          <li>Вставь сервер, порт и секрет из файла выше.</li>
+          <li>Сохрани и включи.</li>
+        </ol>
+      </div>
+      <h3><i class="fas fa-mobile-alt"></i> Android – TG Proxy 2026</h3>
+      <div class="file-link">
+        <i class="fab fa-android"></i>
+        <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank">Скачать APK (последний релиз)</a>
+      </div>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div id="youtube" class="tab-pane">
+      <h2><i class="fab fa-youtube"></i> YouTube – без тормозов</h2>
+      <h3><i class="fas fa-bolt"></i> GoodbyeDPI / Zapret (Windows)</h3>
+      <div class="step-list">
+        <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Установка GoodbyeDPI:</h4>
+        <ol style="margin-left:1.5rem;">
+          <li>Скачай <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank" style="color:#7aa2ff;">последний релиз GoodbyeDPI</a>.</li>
+          <li>Распакуй архив в папку без русских букв (например <code>C:\goodbyedpi\</code>).</li>
+          <li>Запусти <code>1_russia_blacklist_dnsredir.cmd</code> от имени администратора.</li>
+        </ol>
+      </div>
+      <div class="file-link">
+        <i class="fas fa-download"></i>
+        <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank">Скачать GoodbyeDPI</a>
+      </div>
+      <h3><i class="fas fa-globe"></i> Веб‑зеркала</h3>
+      <div class="card-grid">
+        <div class="card">
+          <h4><i class="fas fa-play-circle"></i> Piped</h4>
+          <a href="https://piped.video" target="_blank" class="btn btn-primary">Открыть</a>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-film"></i> Invidious</h4>
+          <a href="https://api.invidious.io" target="_blank" class="btn btn-primary">Выбрать инстанс</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VPN/ПРОКСИ -->
+    <div id="vpn" class="tab-pane">
+      <h2><i class="fas fa-shield-alt"></i> Универсальный обход – VPN/прокси</h2>
+      <h3><i class="fas fa-mobile-alt"></i> Клиенты</h3>
+      <div class="card-grid">
+        <div class="card">
+          <h4><i class="fab fa-android"></i> Android</h4>
+          <a href="https://github.com/2dust/v2rayNG/releases" target="_blank" class="btn">v2rayNG</a>
+        </div>
+        <div class="card">
+          <h4><i class="fab fa-apple"></i> iOS</h4>
+          <a href="https://apps.apple.com/app/streisand/id6450534064" target="_blank" class="btn">Streisand</a>
+        </div>
+        <div class="card">
+          <h4><i class="fab fa-windows"></i> Windows</h4>
+          <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" class="btn">NekoRay</a>
+        </div>
+      </div>
+      <h3><i class="fas fa-link"></i> Подписки с конфигами</h3>
+      <div class="file-link">
+        <i class="fas fa-file-code"></i>
+        <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/configs/vless-reality.txt" target="_blank">rjsxrd / VLESS+Reality</a>
+      </div>
+      <div class="file-link">
+        <i class="fas fa-file-code"></i>
+        <a href="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt" target="_blank">igareck / VLESS Reality</a>
+      </div>
+    </div>
+
+    <!-- ИНСТРУМЕНТЫ -->
+    <div id="tools" class="tab-pane">
+      <h2><i class="fas fa-tools"></i> Дополнительные инструменты</h2>
+      <h3><i class="fas fa-desktop"></i> ByeDPI Manager (GUI)</h3>
+      <div class="file-link">
+        <i class="fas fa-download"></i>
+        <a href="https://github.com/romanvht/ByeDPIManager/releases" target="_blank">Скачать ByeDPI Manager</a>
+      </div>
+      <h3><i class="fas fa-wifi"></i> Nova (обход блокировок Windows)</h3>
+      <div class="file-link">
+        <i class="fas fa-download"></i>
+        <a href="https://github.com/confeden/Nova/releases" target="_blank">Скачать Nova</a>
+      </div>
+    </div>
+
+    <!-- НАШ ЧАТИК -->
+    <div id="chat" class="tab-pane">
+      <h2><i class="fas fa-comments"></i> Анонимный чат SWILL</h2>
+      <div class="chat-status">
+        <span class="online-dot"></span>
+        <span><i class="fas fa-users"></i> Собственный сервер. Без ограничений.</span>
+      </div>
+      <div class="chat-wrapper">
+        <!-- ЗАМЕНИ ССЫЛКУ НА СВОЮ ОТ RENDER WEB SERVICE -->
+        <iframe src="https://swill-chat-xxxx.onrender.com" 
+                class="chat-iframe" 
+                title="Анонимный чат"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                allow="microphone; camera">
+        </iframe>
+      </div>
+      <p style="margin-top:0.8rem; font-size:0.9rem; color:#aaa;">
+        <i class="fas fa-server"></i> Чат работает на собственном сервере. Сообщения видны всем онлайн.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    SWILL HUB // Обновлено: 15.04.2026 // 
+    <span style="opacity:0.5;">Информация предоставлена в образовательных целях.</span>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    var panes = document.querySelectorAll('.tab-pane');
+    function activateTab(tabId) {
+      tabBtns.forEach(function(btn) { btn.classList.remove('active'); });
+      panes.forEach(function(pane) { pane.classList.remove('active'); });
+      var activeBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+      var activePane = document.getElementById(tabId);
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activePane) activePane.classList.add('active');
+    }
+    tabBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tabId = btn.getAttribute('data-tab');
+        if (tabId) { activateTab(tabId); window.location.hash = tabId; }
+      });
+    });
+    function handleHash() {
+      var hash = window.location.hash.substring(1);
+      if (hash) {
+        var validTabs = ['telegram', 'youtube', 'vpn', 'tools', 'chat'];
+        if (validTabs.indexOf(hash) !== -1) activateTab(hash);
+      }
+    }
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+  })();
+</script>
+</body>
+</html>
