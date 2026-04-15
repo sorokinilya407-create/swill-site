@@ -2,66 +2,58 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>БЛОКИРОВОК НЕТ! // SWILL HUB</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Favicon SVG (перечёркнутый РКН) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230b0b0f' stroke='%232a2a3a' stroke-width='2'/%3E%3Ctext x='50' y='62' font-family='Arial, sans-serif' font-size='36' font-weight='900' fill='%23ff3a3a' text-anchor='middle'%3E%D0%A0%D0%9A%D0%9D%3C/text%3E%3Cline x1='18' y1='50' x2='82' y2='50' stroke='%23ffffff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #0b0b0f;
       color: #e0e0e0;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      padding: 1rem;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      line-height: 1.5;
+      padding: 12px;
+      -webkit-font-smoothing: antialiased;
     }
     .container { max-width: 1100px; margin: 0 auto; }
     
     /* header */
-    .hero { margin: 1.5rem 0 2.5rem; text-align: center; }
+    .hero { margin: 1.5rem 0 2rem; text-align: center; }
     .rkn-block {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      font-size: 2.2rem;
+      font-size: clamp(1.8rem, 8vw, 2.5rem);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       color: #ff3a3a;
       text-shadow: 0 0 15px rgba(255,58,58,0.5);
-      position: relative;
       flex-wrap: wrap;
     }
-    .rkn-block::before, .rkn-block::after {
-      content: "РКН";
-      position: absolute;
-      opacity: 0.1;
-      font-size: 5rem;
-      z-index: -1;
-    }
-    .rkn-block::before { left: 0; transform: rotate(-10deg); }
-    .rkn-block::after { right: 0; transform: rotate(10deg); }
     .strikethrough {
       text-decoration: line-through;
       text-decoration-color: #ffffff;
       text-decoration-thickness: 4px;
     }
     .main-title {
-      font-size: 3.5rem;
+      font-size: clamp(2.8rem, 12vw, 4rem);
       font-weight: 900;
       line-height: 1.1;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
       background: linear-gradient(135deg, #ffffff 0%, #a0a0ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 30px rgba(100,100,255,0.3);
     }
     .subtitle {
       color: #aaa;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 4vw, 1.1rem);
       border-bottom: 1px solid #2a2a3a;
       padding-bottom: 1rem;
       margin-top: 0.5rem;
@@ -80,16 +72,16 @@
       background: transparent;
       border: none;
       color: #888;
-      font-size: 1rem;
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
       font-weight: 600;
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1rem;
       cursor: pointer;
       transition: all 0.2s;
       border-radius: 8px 8px 0 0;
-      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.3rem;
+      white-space: nowrap;
     }
     .tab-btn i { font-size: 1rem; }
     .tab-btn:hover { color: #fff; background: #1e1e2a; }
@@ -107,14 +99,14 @@
       background: #7aa2ff;
       box-shadow: 0 0 15px #7aa2ff;
     }
+    .tab-btn { position: relative; }
 
     /* content */
     .tab-content {
       background: #111118;
       border-radius: 20px;
-      padding: 1.8rem;
+      padding: 1.5rem;
       border: 1px solid #2a2a3a;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
@@ -122,58 +114,53 @@
     h2 {
       color: #fff;
       margin-bottom: 1.5rem;
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 6vw, 1.8rem);
       border-left: 5px solid #7aa2ff;
-      padding-left: 1.2rem;
+      padding-left: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
     h3 {
       color: #ccc;
-      margin: 1.8rem 0 1rem;
-      font-size: 1.4rem;
+      margin: 1.5rem 0 1rem;
+      font-size: clamp(1.2rem, 5vw, 1.4rem);
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
     h4 {
       color: #fff;
       margin-bottom: 0.75rem;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 4.5vw, 1.2rem);
     }
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.2rem;
-      margin: 1.2rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
     }
     .card {
       background: #1a1a28;
       border-radius: 14px;
       padding: 1.2rem;
       border: 1px solid #2f2f44;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: #7aa2ff;
     }
 
     .btn {
       display: inline-block;
       background: #2a2a40;
       color: #fff;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 30px;
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9rem;
       border: 1px solid #4a4a6a;
-      transition: all 0.2s;
       margin-right: 0.4rem;
       margin-bottom: 0.4rem;
+      touch-action: manipulation;
     }
     .btn i { margin-right: 0.3rem; }
     .btn-primary {
@@ -182,15 +169,16 @@
       color: #000;
       font-weight: bold;
     }
-    .btn-primary:hover { background: #9bb5ff; }
-    .btn:hover { background: #3a3a55; }
+    .btn-primary:active { background: #9bb5ff; }
+    .btn:active { background: #3a3a55; }
 
     code {
       background: #0c0c14;
       padding: 0.2rem 0.4rem;
       border-radius: 6px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-family: monospace;
       color: #b0b0ff;
+      word-break: break-word;
     }
     pre {
       background: #0c0c14;
@@ -199,18 +187,20 @@
       overflow-x: auto;
       border: 1px solid #2a2a3a;
       margin: 1rem 0;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      -webkit-overflow-scrolling: touch;
     }
 
     .file-link {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       background: #0f0f18;
-      padding: 0.7rem 1rem;
+      padding: 0.8rem 1rem;
       border-radius: 10px;
       margin-bottom: 0.5rem;
       border: 1px dashed #4a4a6a;
+      flex-wrap: wrap;
     }
     .file-link a {
       color: #7aa2ff;
@@ -224,7 +214,6 @@
       font-size: 0.7rem;
       padding: 0.2rem 0.7rem;
       border-radius: 20px;
-      margin-left: 0.5rem;
     }
 
     .warning-note {
@@ -232,49 +221,78 @@
       border-left: 4px solid #ffc107;
       padding: 1rem;
       border-radius: 8px;
-      margin: 1.2rem 0;
+      margin: 1rem 0;
     }
 
     .step-list {
       background: #0f0f18;
-      padding: 1.2rem 1.5rem;
+      padding: 1rem 1.5rem;
       border-radius: 12px;
       margin: 1rem 0;
     }
     .step-list li { margin-bottom: 0.6rem; }
 
-    /* chat */
+    /* chat iframe */
     .chat-wrapper {
       background: #0e0e18;
       border-radius: 16px;
       padding: 0.8rem;
       border: 1px solid #2f2f44;
-      margin: 1.2rem 0;
+      margin: 1rem 0;
     }
     .chat-iframe {
       width: 100%;
-      height: 500px;
+      height: 450px;
       border: none;
       border-radius: 12px;
       background: #1a1a28;
     }
-    .chat-status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      color: #aaa;
+
+    /* форма обратной связи */
+    .feedback-form {
+      background: #0f0f18;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      border: 1px solid #2f2f44;
     }
-    .online-dot {
-      width: 10px;
-      height: 10px;
-      background: #4caf50;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #4caf50;
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      background: #1a1a28;
+      border: 1px solid #4a4a6a;
+      color: #fff;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      outline: none;
+      font-family: inherit;
+    }
+    .feedback-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .feedback-form button {
+      background: #7aa2ff;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      touch-action: manipulation;
+    }
+    .feedback-form button:active { background: #9bb5ff; }
+    .form-status {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      text-align: center;
     }
 
     footer {
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       text-align: center;
       color: #555;
       font-size: 0.85rem;
@@ -282,15 +300,23 @@
       padding-top: 1.5rem;
     }
 
+    /* мобильная оптимизация */
     @media (max-width: 600px) {
-      .hero { margin: 1rem 0 1.5rem; }
-      .rkn-block { font-size: 1.5rem; letter-spacing: 0.1em; }
-      .rkn-block::before, .rkn-block::after { font-size: 3.5rem; }
-      .main-title { font-size: 2.5rem; }
-      .tab-btn { font-size: 0.85rem; padding: 0.5rem 0.8rem; }
-      .tab-content { padding: 1rem; }
-      h2 { font-size: 1.5rem; }
-      h3 { font-size: 1.2rem; }
+      body { padding: 8px; }
+      .hero { margin: 0.8rem 0 1.2rem; }
+      .tab-content { padding: 1rem; border-radius: 16px; }
+      .tabs { gap: 0.2rem; }
+      .tab-btn { padding: 0.5rem 0.7rem; }
+      .tab-btn span { display: none; }
+      .tab-btn i { font-size: 1.2rem; margin: 0; }
+      .file-link { padding: 0.6rem 0.8rem; }
+      .step-list { padding: 0.8rem 1rem; }
+      .feedback-form { padding: 1rem; }
+    }
+
+    /* для очень маленьких экранов */
+    @media (max-width: 400px) {
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -301,20 +327,21 @@
   <div class="hero">
     <div class="rkn-block">
       <span class="strikethrough">РКН</span>
-      <span style="font-size: 1.3rem; margin:0 0.3rem;">✕</span>
+      <span style="font-size: 1.3rem;">✕</span>
       <span>БЛОКИРОВОК</span>
     </div>
     <div class="main-title">НЕТ!</div>
-    <div class="subtitle">Актуальные обходы. Без воды. Всё проверено вручную.</div>
+    <div class="subtitle">Актуальные методы обхода. Проверено. Без воды.</div>
   </div>
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab-btn active" data-tab="telegram"><i class="fab fa-telegram"></i> Telegram</button>
-    <button class="tab-btn" data-tab="youtube"><i class="fab fa-youtube"></i> YouTube</button>
-    <button class="tab-btn" data-tab="vpn"><i class="fas fa-shield-alt"></i> VPN/Прокси</button>
-    <button class="tab-btn" data-tab="tools"><i class="fas fa-tools"></i> Инструменты</button>
-    <button class="tab-btn" data-tab="chat"><i class="fas fa-comments"></i> Наш чатик</button>
+    <button class="tab-btn active" data-tab="telegram"><i class="fab fa-telegram"></i><span>Telegram</span></button>
+    <button class="tab-btn" data-tab="youtube"><i class="fab fa-youtube"></i><span>YouTube</span></button>
+    <button class="tab-btn" data-tab="vpn"><i class="fas fa-shield-alt"></i><span>VPN</span></button>
+    <button class="tab-btn" data-tab="tools"><i class="fas fa-tools"></i><span>Инструменты</span></button>
+    <button class="tab-btn" data-tab="chat"><i class="fas fa-comments"></i><span>Чат</span></button>
+    <button class="tab-btn" data-tab="feedback"><i class="fas fa-bug"></i><span>Связь</span></button>
   </div>
 
   <!-- Tab Content -->
@@ -322,140 +349,175 @@
     
     <!-- TELEGRAM -->
     <div id="telegram" class="tab-pane active">
-      <h2><i class="fab fa-telegram"></i> Telegram – проверенные методы</h2>
+      <h2><i class="fab fa-telegram"></i> Telegram — полный гайд</h2>
       <div class="warning-note">
-        <i class="fas fa-info-circle"></i> Веб-версия иногда тормозит из‑за блокировки WebSocket. 
-        Лучше используй десктоп‑клиент с MTProto‑прокси.
+        <i class="fas fa-info-circle"></i> <strong>Почему не работает:</strong> РКН блокирует WebSocket веб-версии. Решение — MTProto прокси.
       </div>
-      <h3><i class="fas fa-server"></i> Готовые MTProto‑прокси</h3>
-      <div class="file-link">
-        <i class="fas fa-database"></i>
-        <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto – all_proxies.txt</a>
-        <span class="update-badge"><i class="far fa-clock"></i> обновляется каждые 12 часов</span>
-      </div>
-      <div class="file-link">
-        <i class="fas fa-database"></i>
-        <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/mtproto.txt" target="_blank">rjsxrd/mtproto.txt</a>
-        <span class="update-badge"><i class="far fa-clock"></i> раз в 2 дня</span>
-      </div>
+      
+      <h3><i class="fas fa-list-ol"></i> Способ 1: Готовый прокси (30 секунд)</h3>
       <div class="step-list">
-        <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Как добавить прокси в Telegram:</h4>
-        <ol style="margin-left:1.5rem;">
-          <li>Открой Telegram → «Настройки» → «Данные и память» → «Прокси».</li>
-          <li>Нажми «Добавить прокси» → тип <code>MTProto</code>.</li>
-          <li>Вставь сервер, порт и секрет из файла выше.</li>
-          <li>Сохрани и включи.</li>
+        <ol style="margin-left:1.2rem;">
+          <li>Скачай файл с прокси по ссылке ниже</li>
+          <li>Открой Telegram → Настройки → Данные и память → Прокси</li>
+          <li>Жми «Добавить прокси» → MTProto</li>
+          <li>Скопируй данные из файла и вставь</li>
+          <li>Готово — Telegram работает без VPN</li>
         </ol>
       </div>
-      <h3><i class="fas fa-mobile-alt"></i> Android – TG Proxy 2026</h3>
       <div class="file-link">
-        <i class="fab fa-android"></i>
-        <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank">Скачать APK (последний релиз)</a>
+        <i class="fas fa-database"></i>
+        <a href="https://raw.githubusercontent.com/SoliSpirit/mtproto/master/all_proxies.txt" target="_blank">SoliSpirit/mtproto — свежие прокси</a>
+        <span class="update-badge"><i class="far fa-clock"></i> каждые 12ч</span>
       </div>
+      
+      <h3><i class="fas fa-server"></i> Способ 2: Свой прокси (для гиков)</h3>
+      <p>Подними на VPS за 5 минут — будет только твой и без лимитов.</p>
+      <pre><code># Установка Docker
+curl -fsSL https://get.docker.com | sh
+# Запуск MTProto с маскировкой под Google
+docker run -d --restart=unless-stopped --name mtg -p 443:3128 nineseconds/mtg:2 run https://www.google.com
+# Получить ссылку
+docker logs mtg 2>&1 | grep "tg://"</code></pre>
+      
+      <h3><i class="fab fa-android"></i> Android: TG Proxy 2026</h3>
+      <p>Приложение, которое поднимает SOCKS5 прокси прямо на телефоне. Работает без рута.</p>
+      <a href="https://github.com/Genuys/TelegramUnlockAppAndroid2026/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать APK</a>
     </div>
 
     <!-- YOUTUBE -->
     <div id="youtube" class="tab-pane">
-      <h2><i class="fab fa-youtube"></i> YouTube – без тормозов</h2>
-      <h3><i class="fas fa-bolt"></i> GoodbyeDPI / Zapret (Windows)</h3>
+      <h2><i class="fab fa-youtube"></i> YouTube — убираем тормоза</h2>
+      <div class="warning-note">
+        <i class="fas fa-info-circle"></i> <strong>Ситуация:</strong> РКН режет скорость YouTube через DPI. Решается утилитами GoodbyeDPI/Zapret.
+      </div>
+      
+      <h3><i class="fas fa-windows"></i> GoodbyeDPI (Windows 10/11)</h3>
       <div class="step-list">
-        <h4 style="margin-top:0;"><i class="fas fa-list-ol"></i> Установка GoodbyeDPI:</h4>
-        <ol style="margin-left:1.5rem;">
-          <li>Скачай <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank" style="color:#7aa2ff;">последний релиз GoodbyeDPI</a>.</li>
-          <li>Распакуй архив в папку без русских букв (например <code>C:\goodbyedpi\</code>).</li>
-          <li>Запусти <code>1_russia_blacklist_dnsredir.cmd</code> от имени администратора.</li>
+        <ol style="margin-left:1.2rem;">
+          <li>Скачай <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank" style="color:#7aa2ff;">последнюю версию</a></li>
+          <li>Распакуй в <code>C:\goodbyedpi\</code> (без русских букв!)</li>
+          <li>Запусти <code>1_russia_blacklist_dnsredir.cmd</code> от имени Администратора</li>
+          <li>Не закрывай окно — YouTube полетит на полной скорости</li>
         </ol>
       </div>
-      <div class="file-link">
-        <i class="fas fa-download"></i>
-        <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank">Скачать GoodbyeDPI</a>
-      </div>
-      <h3><i class="fas fa-globe"></i> Веб‑зеркала</h3>
+      <a href="https://github.com/ValdikSS/GoodbyeDPI/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать GoodbyeDPI</a>
+      
+      <h3><i class="fas fa-globe"></i> Веб-зеркала (без установки)</h3>
       <div class="card-grid">
         <div class="card">
-          <h4><i class="fas fa-play-circle"></i> Piped</h4>
+          <h4>Piped</h4>
+          <p>Смотри YouTube без рекламы и трекеров.</p>
           <a href="https://piped.video" target="_blank" class="btn btn-primary">Открыть</a>
         </div>
         <div class="card">
-          <h4><i class="fas fa-film"></i> Invidious</h4>
-          <a href="https://api.invidious.io" target="_blank" class="btn btn-primary">Выбрать инстанс</a>
+          <h4>Invidious</h4>
+          <p>Альтернативный фронтенд, много инстансов.</p>
+          <a href="https://redirect.invidious.io" target="_blank" class="btn btn-primary">Выбрать сервер</a>
         </div>
       </div>
     </div>
 
     <!-- VPN/ПРОКСИ -->
     <div id="vpn" class="tab-pane">
-      <h2><i class="fas fa-shield-alt"></i> Универсальный обход – VPN/прокси</h2>
-      <h3><i class="fas fa-mobile-alt"></i> Клиенты</h3>
+      <h2><i class="fas fa-shield-alt"></i> Полный обход — VPN и прокси</h2>
+      <p>Лучшие протоколы на сегодня: <strong>VLESS + Reality</strong>, <strong>Hysteria2</strong>, <strong>AmneziaWG</strong>.</p>
+      
+      <h3><i class="fas fa-mobile-alt"></i> Клиенты под все платформы</h3>
       <div class="card-grid">
         <div class="card">
           <h4><i class="fab fa-android"></i> Android</h4>
+          <p>v2rayNG, Hiddify, Streisand</p>
           <a href="https://github.com/2dust/v2rayNG/releases" target="_blank" class="btn">v2rayNG</a>
         </div>
         <div class="card">
           <h4><i class="fab fa-apple"></i> iOS</h4>
+          <p>Streisand, FoXray</p>
           <a href="https://apps.apple.com/app/streisand/id6450534064" target="_blank" class="btn">Streisand</a>
         </div>
         <div class="card">
           <h4><i class="fab fa-windows"></i> Windows</h4>
+          <p>NekoRay, v2rayN</p>
           <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" class="btn">NekoRay</a>
         </div>
       </div>
-      <h3><i class="fas fa-link"></i> Подписки с конфигами</h3>
+      
+      <h3><i class="fas fa-link"></i> Готовые конфиги (обновляются автоматически)</h3>
       <div class="file-link">
         <i class="fas fa-file-code"></i>
         <a href="https://raw.githubusercontent.com/whoahaow/rjsxrd/main/configs/vless-reality.txt" target="_blank">rjsxrd / VLESS+Reality</a>
+        <span class="update-badge">раз в 2 дня</span>
       </div>
       <div class="file-link">
         <i class="fas fa-file-code"></i>
-        <a href="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt" target="_blank">igareck / VLESS Reality</a>
+        <a href="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt" target="_blank">igareck / VLESS Reality (белые списки)</a>
+        <span class="update-badge">каждые 2 часа</span>
       </div>
+      <p style="margin-top:0.5rem; font-size:0.9rem; color:#aaa;">
+        <i class="fas fa-info-circle"></i> В клиенте выбери «Импорт из URL» и вставь ссылку выше.
+      </p>
     </div>
 
     <!-- ИНСТРУМЕНТЫ -->
     <div id="tools" class="tab-pane">
       <h2><i class="fas fa-tools"></i> Дополнительные инструменты</h2>
-      <h3><i class="fas fa-desktop"></i> ByeDPI Manager (GUI)</h3>
-      <div class="file-link">
-        <i class="fas fa-download"></i>
-        <a href="https://github.com/romanvht/ByeDPIManager/releases" target="_blank">Скачать ByeDPI Manager</a>
+      
+      <h3>ByeDPI Manager (GUI)</h3>
+      <p>Удобная оболочка для GoodbyeDPI с графическим интерфейсом.</p>
+      <a href="https://github.com/romanvht/ByeDPIManager/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать</a>
+      
+      <h3>Nova (Windows)</h3>
+      <p>Комплексный обход блокировок сайтов. Работает из коробки.</p>
+      <a href="https://github.com/confeden/Nova/releases" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Скачать Nova</a>
+      
+      <h3>Смена DNS</h3>
+      <p>Иногда этого достаточно для доступа к части сайтов.</p>
+      <ul style="margin-left:1.5rem; margin-top:0.5rem;">
+        <li><strong>Cloudflare:</strong> 1.1.1.1 / 1.0.0.1</li>
+        <li><strong>AdGuard:</strong> 94.140.14.14 / 94.140.15.15</li>
+      </ul>
+    </div>
+
+    <!-- ЧАТ -->
+    <div id="chat" class="tab-pane">
+      <h2><i class="fas fa-comments"></i> Анонимный чат SWILL</h2>
+      <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+        <span style="width:10px;height:10px;background:#4caf50;border-radius:50%;"></span>
+        <span>Собственный сервер. Без регистрации.</span>
       </div>
-      <h3><i class="fas fa-wifi"></i> Nova (обход блокировок Windows)</h3>
-      <div class="file-link">
-        <i class="fas fa-download"></i>
-        <a href="https://github.com/confeden/Nova/releases" target="_blank">Скачать Nova</a>
+      <div class="chat-wrapper">
+        <!-- ЗАМЕНИ НА СВОЙ URL ОТ RENDER -->
+        <iframe src="https://swill-chat-xxxx.onrender.com" 
+                class="chat-iframe" 
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups">
+        </iframe>
       </div>
     </div>
 
-    <!-- НАШ ЧАТИК -->
-    <div id="chat" class="tab-pane">
-      <h2><i class="fas fa-comments"></i> Анонимный чат SWILL</h2>
-      <div class="chat-status">
-        <span class="online-dot"></span>
-        <span><i class="fas fa-users"></i> Собственный сервер. Без ограничений.</span>
+    <!-- ОБРАТНАЯ СВЯЗЬ -->
+    <div id="feedback" class="tab-pane">
+      <h2><i class="fas fa-bug"></i> Сообщить об ошибке / Предложить</h2>
+      <p>Нашёл нерабочую ссылку? Есть идея? Напиши — сообщение уйдёт мне в Telegram.</p>
+      
+      <div class="feedback-form">
+        <input type="text" id="fb-name" placeholder="Твоё имя (или ник)" maxlength="30">
+        <textarea id="fb-message" placeholder="Опиши проблему или предложение..."></textarea>
+        <button id="fb-send"><i class="fab fa-telegram"></i> Отправить в Telegram</button>
+        <div id="fb-status" class="form-status"></div>
       </div>
-      <div class="chat-wrapper">
-        <!-- ЗАМЕНИ ССЫЛКУ НА СВОЮ ОТ RENDER WEB SERVICE -->
-        <iframe src="https://swill.onrender.com" 
-                class="chat-iframe" 
-                title="Анонимный чат"
-                sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                allow="microphone; camera">
-        </iframe>
-      </div>
-      <p style="margin-top:0.8rem; font-size:0.9rem; color:#aaa;">
-        <i class="fas fa-server"></i> Чат работает на собственном сервере. Сообщения видны всем онлайн.
+      <p style="margin-top:1rem; font-size:0.9rem; color:#aaa;">
+        <i class="fab fa-telegram"></i> Мой Telegram: <strong>@s1r_pon</strong> (можно написать напрямую)
       </p>
     </div>
   </div>
 
   <footer>
-    SWILL HUB // Обновлено: 15.04.2026 // 
+    SWILL HUB // Обновлено: 15.04.2026<br>
     <span style="opacity:0.5;">Информация предоставлена в образовательных целях.</span>
   </footer>
 </div>
 
 <script>
+  // Tabs
   (function() {
     var tabBtns = document.querySelectorAll('.tab-btn');
     var panes = document.querySelectorAll('.tab-pane');
@@ -466,6 +528,7 @@
       var activePane = document.getElementById(tabId);
       if (activeBtn) activeBtn.classList.add('active');
       if (activePane) activePane.classList.add('active');
+      try { localStorage.setItem('swill_last_tab', tabId); } catch(e) {}
     }
     tabBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -473,15 +536,70 @@
         if (tabId) { activateTab(tabId); window.location.hash = tabId; }
       });
     });
-    function handleHash() {
-      var hash = window.location.hash.substring(1);
-      if (hash) {
-        var validTabs = ['telegram', 'youtube', 'vpn', 'tools', 'chat'];
-        if (validTabs.indexOf(hash) !== -1) activateTab(hash);
+    var hash = window.location.hash.substring(1);
+    var lastTab = localStorage.getItem('swill_last_tab');
+    var startTab = hash || lastTab || 'telegram';
+    activateTab(startTab);
+  })();
+
+  // Форма обратной связи в Telegram
+  (function() {
+    var sendBtn = document.getElementById('fb-send');
+    if (!sendBtn) return;
+    
+    var BOT_TOKEN = 'YOUR_BOT_TOKEN'; // ЗАМЕНИ НА ТОКЕН СВОЕГО БОТА
+    var CHAT_ID = 'YOUR_CHAT_ID';     // ЗАМЕНИ НА СВОЙ CHAT ID
+    
+    sendBtn.addEventListener('click', function() {
+      var name = document.getElementById('fb-name').value.trim() || 'Аноним';
+      var msg = document.getElementById('fb-message').value.trim();
+      var status = document.getElementById('fb-status');
+      
+      if (!msg) {
+        status.innerHTML = '<span style="color:#ff6b6b;">Введи сообщение</span>';
+        return;
       }
+      
+      // Если токен не настроен — показываем инструкцию
+      if (BOT_TOKEN === 'YOUR_BOT_TOKEN') {
+        status.innerHTML = '<span style="color:#ffc107;">⚠️ Настрой бота. Инструкция в коде.</span>';
+        alert('Чтобы форма работала, создай бота в @BotFather и вставь токен в код.');
+        return;
+      }
+      
+      var text = '📨 *SWILL HUB — новое сообщение*\n\n' +
+                 '👤 *От:* ' + escapeMarkdown(name) + '\n' +
+                 '📝 *Текст:* ' + escapeMarkdown(msg) + '\n\n' +
+                 '_' + new Date().toLocaleString('ru-RU') + '_';
+      
+      status.innerHTML = '<span style="color:#7aa2ff;">Отправка...</span>';
+      
+      fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: 'Markdown'
+        })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          status.innerHTML = '<span style="color:#4caf50;">✅ Отправлено! Спасибо.</span>';
+          document.getElementById('fb-message').value = '';
+        } else {
+          status.innerHTML = '<span style="color:#ff6b6b;">❌ Ошибка. Напиши в Telegram: @s1r_pon</span>';
+        }
+      })
+      .catch(function() {
+        status.innerHTML = '<span style="color:#ff6b6b;">❌ Ошибка сети. Попробуй позже.</span>';
+      });
+    });
+    
+    function escapeMarkdown(text) {
+      return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
     }
-    window.addEventListener('hashchange', handleHash);
-    handleHash();
   })();
 </script>
 </body>
