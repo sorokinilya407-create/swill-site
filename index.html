@@ -707,12 +707,77 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
   })();
 
   // Форма обратной связи
+   // Форма обратной связи (с проксированием для обхода блокировки Telegram API)
   (function() {
     var sendBtn = document.getElementById('fb-send');
     if (!sendBtn) return;
     
     var BOT_TOKEN = '8680476781:AAF619bCJEDzArK4AZIdY4ClSkcmMx5NYlU';
     var CHAT_ID = '5096226866';
+    
+    // Список публичных CORS-прокси для обхода блокировки api.telegram.org
+    var CORS_PROXIES = [
+      'https://corsproxy.io/?',           // основной
+      'https://api.allorigins.win/raw?url=', // резервный
+      'https://cors-anywhere.herokuapp.com/' // ещё один
+    ];
+    
+    var currentProxyIndex = 0;
+    
+    function trySendMessage(proxyUrl, name, msg, status, callback) {
+      var telegramUrl = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
+      var text = '📨 *SWILL HUB — новое сообщение*\n\n' +
+                 '👤 *От:* ' + escapeMarkdown(name) + '\n' +
+                 '📝 *Текст:* ' + escapeMarkdown(msg) + '\n\n' +
+                 '_' + new Date().toLocaleString('ru-RU') + '_';
+      
+      var body = JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+        parse_mode: 'Markdown'
+      });
+      
+      // Пробуем через прокси
+      var url = proxyUrl + encodeURIComponent(telegramUrl);
+      
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          callback(true, null);
+        } else {
+          callback(false, data);
+        }
+      })
+      .catch(function(err) {
+        callback(false, err);
+      });
+    }
+    
+    function sendWithRetry(name, msg, status) {
+      if (currentProxyIndex >= CORS_PROXIES.length) {
+        // Все прокси не сработали — показываем альтернативу
+        status.innerHTML = '<span style="color:#ffc107;">⚠️ Не удалось отправить. Напиши мне напрямую в Telegram: <strong>@s1r_pon</strong></span>';
+        return;
+      }
+      
+      var proxy = CORS_PROXIES[currentProxyIndex];
+      status.innerHTML = '<span style="color:#7aa2ff;">Попытка ' + (currentProxyIndex + 1) + '/' + CORS_PROXIES.length + '...</span>';
+      
+      trySendMessage(proxy, name, msg, status, function(success, error) {
+        if (success) {
+          status.innerHTML = '<span style="color:#4caf50;">✅ Отправлено! Спасибо.</span>';
+          document.getElementById('fb-message').value = '';
+        } else {
+          currentProxyIndex++;
+          sendWithRetry(name, msg, status);
+        }
+      });
+    }
     
     sendBtn.addEventListener('click', function() {
       var name = document.getElementById('fb-name').value.trim() || 'Аноним';
@@ -724,30 +789,9 @@ docker logs mtg 2>&1 | grep "tg://"</code></pre>
         return;
       }
       
-      var text = '📨 *SWILL HUB — новое сообщение*\n\n' +
-                 '👤 *От:* ' + escapeMarkdown(name) + '\n' +
-                 '📝 *Текст:* ' + escapeMarkdown(msg) + '\n\n' +
-                 '_' + new Date().toLocaleString('ru-RU') + '_';
-      
-      status.innerHTML = '<span style="color:#7aa2ff;">Отправка...</span>';
-      
-      fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.ok) {
-          status.innerHTML = '<span style="color:#4caf50;">✅ Отправлено! Спасибо.</span>';
-          document.getElementById('fb-message').value = '';
-        } else {
-          status.innerHTML = '<span style="color:#ff6b6b;">❌ Ошибка. Напиши в Telegram: @s1r_pon</span>';
-        }
-      })
-      .catch(function() {
-        status.innerHTML = '<span style="color:#ff6b6b;">❌ Ошибка сети. Попробуй позже.</span>';
-      });
+      // Сбрасываем индекс прокси и начинаем отправку
+      currentProxyIndex = 0;
+      sendWithRetry(name, msg, status);
     });
     
     function escapeMarkdown(text) {
